@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Joie Real Estate</title>
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <li class="logo2">La Joie</li>
+        <nav>
+            <ul class="nav-links">
+              
+                <li><a href="../Homepage/homepage.html" class="active">HOME</a></li>
+                <li><a href="../About Us page/about.html">ABOUT US</a></li>
+                <li class="dropdown">
+                    <a href="../Communities/community.html">COMMUNITIES</a>
+                    <div class="dropdown-content">
+                        <a href="../Communities/Residential/residential.html">Residential</a>
+                        <a href="../Communities/Commercial/commercial.html">Commercial</a>
+                        <a href="../Communities/Off-plan/offplan.html">Off-Plan</a>
+                        <a href="../Communities/Luxury Estate/luxury.html">Luxury Estates</a>
+                    </div>
+                </li>
+                <li class="logo">La Joie</li>
+                <li class="dropdown">
+                    <a href="../Properties/property.html">PROPERTIES</a>
+                    <div class="dropdown-content">
+                        <a href="../Properties/Sale/Sale.html">For Sale</a>
+                        <a href="../Properties/Rent/Rent.html">For Rent</a>
+                        <a href="../Properties/New Developments/ND.html">New Developments</a>
+                        <a href="../Properties/Featured Listings/FL.html">Featured Listings</a>
+                    </div>
+                </li>
+                <li><a href="../Contact Us page/contactus.html">CONTACT US</a></li>
+                <li><a href="../Career Page/career.html">CAREER</a></li>
+                <li class="mobile-only"><a href="../Admin/admin-login.html">ADMIN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <a href="https://wa.me/+971527111305" class="whatsapp-btn" id="whatsappBtn" target="_blank" rel="noopener noreferrer">
+        <div class="whatsapp-icon">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+        <span class="whatsapp-text">Chat with us</span>
+    </a>
+
+    <!-- Hero Section with Video -->
+    <section class="hero-section">
+        <div class="video-container">
+            <video autoplay loop muted playsinline>
+                <source src="Gallery/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="text-overlay">
+                <h1>Luxury Living Redefined</h1>
+                <p>Discover exceptional properties that match your lifestyle and aspirations.</p>
+            </div>
+            <div class="see-more-container">
+                <a href="#properties-section" class="see-more-btn">
+                    See More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img id="about-img" src="Gallery/our mission.jpg" alt="About Us Image">
+            </div>
+            <div class="about-content">
+                <h2>Our Mission</h2>
+                <p id="about-text">" Our mission is to deliver reliable, transparent, and personalized real estate services that empower our clients to make confident and informed property decisions. We are committed to building lasting relationships based on trust, integrity, and clear communication. By combining local market expertise with a client-first approach, we strive to simplify the real estate journey, whether you're buying, selling, or investing. " </p>
+
+                <div class="about-tabs">
+                    <button class="tab-btn active" data-tab="mission">Our Mission</button>
+                    <button class="tab-btn" data-tab="story">Our Story</button>
+                    <button class="tab-btn" data-tab="vision">Our Vision</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <h2>NEWS LETTERS & UPDATES</h2>
+        <div class="news-container">
+            <div class="news-carousel">
+                <div class="news-card">
+                    <a href="https://www.propertywire.com/news/uae-property-outlook-2025" target="_blank">
+                        <img src="Gallery/1.jpg" alt="News Image">
+                        <h3>Rising Stars: A Forecast of the UAE Property Outlook for 2025 in Real Estate</h3>
+                        <p>Prepare for an inside examination of the future prospects in the UAE real estate sphere. @propertywire.com </p>
+                    </a>
+                </div>
+                <div class="news-card">
+                    <a href=https://www.arabianbusiness.com/industries/real-estate/sharjah-real-estate-2025-why-investors-are-eyeing-the-uaes-emerging-property-market target="_blank">
+                        <img src="Gallery/2.jpg" alt="News Image">
+                        <h3>Sharjah real estate 2025: Why investors are eyeing the UAE’s emerging property market</h3>
+                        <p>Alef Group’s CEO Issa Ataya on smart cities, cultural capital, and how Sharjah is quietly redefining urban life in the UAE. @ArabianBusiness.com</p>
+                    </a>
+                </div>
+                <div class="news-card">
+                    <a href=https://whatson.ae/2025/05/residential-megaprojects-in-abu-dhabi/ target="_blank">
+                        <img src="Gallery/3.jpg" alt="News Image">
+                        <h3>21 Abu Dhabi residential megaprojects that will transform the city</h3>
+                        <p>Here are 21 incredible Abu Dhabi residential megaprojects we’re excited for. Take a look at these stunning images before you get started reading on them.  @whatson.ae</p>
+                    </a>
+                </div>
+                <div class="news-card">
+                    <a href=https://www.arabianbusiness.com/industries/real-estate/european-real-estate-developer-announces-2-72bn-uae-project-pipeline target="_blank">
+                        <img src="Gallery/6.jpg" alt="News Image">
+
+                        <h3>European real estate developer announces $2.72bn UAE project pipeline</h3>
+                        <p>
+                            MAAIA targets growth in UAE with new projects announced in Dubai and $1.4bn sales target in 2025. @ArabianBusiness.com
+                        </p>
+                    </a>
+                </div>
+                <div class="news-card">
+                    <a href=https://gulfnews.com/business/tourism/look-jumeirah-unveils-plans-to-expand-in-dubai-with-3-new-developments-at-atm-2025-1.500108376 target="_blank">
+                        <img src="Gallery/5.jpg" alt="News Image">
+                        <h3>Look: Jumeirah reveals 3 new properties in Dubai at ATM 2025</h3>
+                        <p>Jumeirah has segmented its portfolio into 4 key offerings to drive growth.  @Gulfnews.com</p>
+                    </a>
+                </div>
+                <div class="news-card">
+                    <a href=https://www.zawya.com/en/projects/construction/dubai-a-global-hub-for-premium-real-estate-despite-tender-price-rise-b5853jxc target="_blank">
+                        <img src="Gallery/7.jpg" alt="News Image">
+                        <h3>Dubai a global hub for premium real estate despite tender price rise</h3>
+                        <p>Sol Properties set to launch six new projects valued at $3.3 bln in 2025, says Founder and CEO Ajay Bhatia.  @zaywa.com</p>
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
+                <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Properties Section -->
+    <section class="properties-section" id="properties-section">
+        <div class="properties-container">
+            <div class="property-gallery">
+                <div class="main-property-image">
+                    <img id="main-property-img" src="Gallery/p1.jpg" alt="Featured Property">
+                </div>
+                <div class="thumbnail-gallery">
+                    <img class="thumbnail active" src='Gallery/p1.jpg' alt="Property 1" data-index="0">
+                    <img class="thumbnail" src='Gallery/p2.jpg' alt="Property 2" data-index="1">
+                    <img class="thumbnail" src='Gallery/p3.jpg' alt="Property 3" data-index="2">
+                    <img class="thumbnail" src='Gallery/p4.jpg' alt="Property 4" data-index="3">
+                    <img class="thumbnail" src='Gallery/p5.jpg' alt="Property 5" data-index="4">
+                </div>
+            </div>
+            <div class="property-info">
+                <h2><i>TOP PROPERTIES</i></h2>
+                <i>
+                    <p id="property-description">
+                        Abu Dhabi is home to some of the most luxurious and sought-after properties in the world, offering a unique blend of modernity, sophistication, and traditional Arabian charm. From sleek high-rise apartments with breathtaking waterfront views to expansive villas nestled in serene, master-planned communities, the capital city caters to a diverse range of lifestyle preferences.
+                        Its real estate landscape is characterized by world-class architecture, premium amenities, and a strong emphasis on sustainability and innovation.
+                    </p>
+                </i>
+
+                <a href="../Properties/property.html" class="load-more-btn"> LOAD MORE</a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section" id="location">
+        <h2>WHERE ARE WE LOCATED?</h2>
+        <div class="location-container">
+            <div class="location-info">
+                <p><b>Abu Dhabi, United Arab Emirates</b></p>
+                <div class="contact-details">
+                    <p>Phone Number: +971-527111305</p>
+                    <p>Email: lajoie@outlook.com </p>
+                </div>
+            </div>
+            <div class="location-map">
+                <img src="Gallery/map.png" alt="Map of Abu Dhabi" id="map-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">La Joie</div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <ul>
+                        <li><a href="../Career Page/career.html">Careers</a></li>
+                        <li><a href="../Contact Us Page/contactus.html">Contact Us</a></li>
+                        <li><a href="../Homepage/homepage.html#location">Location</a></li>
+                        <li><a href="../Properties/Feautured Listings/FL.html">Feautured Listings</a></li>
+                        <li><a href="../Communities/Luxury Estate/luxury.html">Luxury Estate</a></li>
+                        <li><a href="../Homepage/homepage.html#news">News</a></li>
+                        <li><a href="../Admin/admin-dashboard.html">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>PROPERTIES</h3>
+                    <ul>
+                        <li><a href="../Communities/Off-plan/offplan.html">Off-plan</a></li>
+                        <li><a href="../Properties/Sale/Sale.html">Sale</a></li>
+                        <li><a href="../Communities/community.html">Communities</a></li>
+                        <li><a href="../Properties/Rent/Rent.html">Rent</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>ABOUT US</h3>
+                    <ul>
+                        <li><a href="../About Us page/about.html#timelineSection">Timeline</a></li>
+                        <li><a href="../About Us page/about.html#ourNote">Our Note</a></li>
+                        <li><a href="../About Us page/about.html#teamSection">Our Team</a></li>
+                    </ul>
+                </div>
+                <div class="footer-search">
+                    <div class="search-container">
+                        <input type="text" id="footerSearchInput" placeholder="Search properties, locations...">
+                        <div class="search-results" id="searchResults">
+                            <!-- Results will appear here dynamically -->
+                            <div class="initial-hint">Try searching for properties, communities, or team members</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026, La Joie, All rights reserved.
+        </div>
+    </footer>
+
+    <script src="homepage.js"></script>
+    <script src="../common.js"></script>
+</body>
+</html>

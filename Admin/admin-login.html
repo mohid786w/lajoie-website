@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - La Joie Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #b1935a;
+            --light-color: #f8f8f8;
+            --form-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        a {
+            color: var(--accent-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-container {
+            width: 400px;
+            padding: 40px;
+            background-color: var(--form-bg);
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+            .input-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: var(--primary-color);
+                font-weight: 500;
+            }
+
+            .input-group input {
+                width: 100%;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                outline: none;
+                font-size: 1rem;
+                transition: border-color 0.3s;
+            }
+
+                .input-group input:focus {
+                    border-color: var(--accent-color);
+                }
+
+            .input-group .icon {
+                position: absolute;
+                right: 15px;
+                top: 42px;
+                color: #999;
+            }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+            button:hover {
+                background-color: #9a7d48;
+            }
+
+        .error-message {
+            color: #ff4136;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message {
+            color: #2ecc71;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: #999;
+        }
+
+            .divider::before,
+            .divider::after {
+                content: '';
+                flex: 1;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .divider span {
+                padding: 0 15px;
+                font-size: 0.9rem;
+            }
+
+        /* Google Sign-In Button Container */
+        .google-signin-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Custom Google Button Styling (if needed) */
+        #googleSignInBtn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #444;
+        }
+
+            #googleSignInBtn:hover {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                border-color: #ccc;
+            }
+
+            #googleSignInBtn img {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                max-width: 500px;
+                padding: 35px 30px;
+                margin: 20px;
+            }
+
+            .logo {
+                font-size: 2.2rem;
+                margin-bottom: 25px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 18px;
+            }
+
+            .input-group {
+                margin-bottom: 25px;
+            }
+
+                .input-group input {
+                    padding: 14px;
+                    font-size: 16px;
+                }
+
+            button {
+                padding: 14px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 15px;
+                background-attachment: scroll;
+            }
+
+            .login-container {
+                width: 100%;
+                max-width: none;
+                padding: 30px 25px;
+                margin: 0;
+                border-radius: 8px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+
+            .logo {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+            }
+
+            .input-group {
+                margin-bottom: 20px;
+            }
+
+                .input-group label {
+                    margin-bottom: 6px;
+                    font-size: 0.9rem;
+                }
+
+                .input-group input {
+                    padding: 12px;
+                    font-size: 16px;
+                    border-radius: 4px;
+                }
+
+                .input-group .icon {
+                    top: 38px;
+                    right: 12px;
+                    font-size: 0.9rem;
+                }
+
+            button {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+                border-radius: 4px;
+                margin-top: 8px;
+            }
+
+            .error-message, .success-message {
+                font-size: 0.85rem;
+                margin: 12px 0;
+            }
+
+            #googleSignInBtn {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+        }
+
+        @media screen and (max-width: 320px) {
+            .login-container {
+                padding: 25px 20px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .input-group input {
+                padding: 11px;
+            }
+
+            button {
+                padding: 11px 18px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (max-height: 600px) and (orientation: landscape) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .login-container {
+                margin: 20px auto;
+                padding: 25px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+
+            .input-group {
+                margin-bottom: 18px;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            button:hover {
+                background-color: var(--accent-color);
+            }
+
+            button:active {
+                background-color: #9a7d48;
+                transform: scale(0.98);
+            }
+
+            #googleSignInBtn:hover {
+                box-shadow: none;
+                border-color: #ddd;
+            }
+
+            #googleSignInBtn:active {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                transform: scale(0.98);
+            }
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .login-container {
+                box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo"><a href="../Homepage/homepage.html">LA JOIE</a></div>
+        <h1>Admin Login</h1>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <div class="icon"><i class="fas fa-user"></i></div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <div class="icon"><i class="fas fa-lock"></i></div>
+            </div>
+
+            <div class="error-message" id="errorMessage">Invalid username or password. Please try again.</div>
+            <div class="success-message" id="successMessage">Login successful! Redirecting...</div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <!-- Google Sign-In Button Container -->
+        <div class="google-signin-container">
+            <div id="g_id_onload"
+                 data-client_id="627756401638-d94p8m7nn01vmfretvbq6hqbqdrl42mg.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-size="large"
+                 data-theme="outline"
+                 data-text="sign_in_with"
+                 data-shape="rectangular"
+                 data-logo_alignment="left"
+                 data-width="320">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        const GOOGLE_CLIENT_ID = '627756401638-d94p8m7nn01vmfretvbq6hqbqdrl42mg.apps.googleusercontent.com';
+
+       
+        const API_BASE_URL = 'http://localhost:3001/api';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Traditional username/password login
+            loginForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    // Send login request to backend
+                    const response = await fetch(`${API_BASE_URL}/admin/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Store login state
+                        sessionStorage.setItem('isLoggedIn', 'true');
+                        sessionStorage.setItem('adminUser', username);
+                        sessionStorage.setItem('loginMethod', 'traditional');
+
+                        // Show success message
+                        errorMessage.style.display = 'none';
+                        successMessage.style.display = 'block';
+
+                        // Redirect to dashboard
+                        setTimeout(() => {
+                            window.location.href = 'admin-dashboard.html';
+                        }, 1000);
+                    } else {
+                        // Show error message
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+
+                        // Shake animation
+                        loginForm.classList.add('shake');
+                        setTimeout(() => {
+                            loginForm.classList.remove('shake');
+                        }, 500);
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    errorMessage.textContent = 'Login failed. Please try again.';
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                }
+            });
+        });
+
+        // Google Sign-In Callback
+        function handleCredentialResponse(response) {
+            // Decode JWT token to get user info
+            const responsePayload = parseJwt(response.credential);
+
+            console.log("ID: " + responsePayload.sub);
+            console.log('Full Name: ' + responsePayload.name);
+            console.log('Email: ' + responsePayload.email);
+            console.log("Image URL: " + responsePayload.picture);
+
+            // Check if the email is authorized 
+            const authorizedEmails = [
+                'admin@lajoie.com',
+                'your-admin-email@gmail.com',
+                'gohnjohnw@gmail.com'
+            ];
+
+            const userEmail = responsePayload.email;
+
+            
+            if (true) { 
+                // Store login state
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('adminUser', responsePayload.name);
+                sessionStorage.setItem('adminEmail', userEmail);
+                sessionStorage.setItem('adminPicture', responsePayload.picture);
+                sessionStorage.setItem('loginMethod', 'google');
+
+                // Show success message
+                const errorMessage = document.getElementById('errorMessage');
+                const successMessage = document.getElementById('successMessage');
+                errorMessage.style.display = 'none';
+                successMessage.textContent = `Welcome, ${responsePayload.name}! Redirecting...`;
+                successMessage.style.display = 'block';
+
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'admin-dashboard.html';
+                }, 1500);
+            } else {
+                // Unauthorized email
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.textContent = 'Unauthorized email. Access denied.';
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        // Helper function to decode JWT token
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        }
+    </script>
+</body>
+</html>

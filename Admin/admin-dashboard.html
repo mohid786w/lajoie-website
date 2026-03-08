@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - La Joie Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #b1935a;
+            --light-color: #f8f8f8;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        a {
+            color: var(--accent-color);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: width 0.3s;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .admin-name {
+            font-weight: 500;
+        }
+
+        .admin-role {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+            .nav-menu li {
+                padding: 12px 20px;
+                transition: background-color 0.3s;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+            }
+
+                .nav-menu li.active {
+                    background-color: rgba(177, 147, 90, 0.2);
+                    border-left: 4px solid var(--accent-color);
+                }
+
+                .nav-menu li:hover {
+                    background-color: rgba(255,255,255,0.05);
+                }
+
+                .nav-menu li i {
+                    margin-right: 10px;
+                    color: var(--accent-color);
+                }
+
+        .logout-btn {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            padding: 10px 20px;
+        }
+
+            .logout-btn button {
+                width: 100%;
+                padding: 10px;
+                background-color: transparent;
+                border: 1px solid var(--accent-color);
+                color: var(--accent-color);
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .logout-btn button i {
+                    margin-right: 8px;
+                }
+
+                .logout-btn button:hover {
+                    background-color: var(--accent-color);
+                    color: white;
+                }
+
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 30px;
+            transition: margin-left 0.3s;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .refresh-btn, .export-btn {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: var(--light-color);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .refresh-btn i, .export-btn i {
+                margin-right: 5px;
+                color: var(--accent-color);
+            }
+
+            .refresh-btn:hover, .export-btn:hover {
+                background-color: var(--accent-color);
+                color: white;
+                border-color: var(--accent-color);
+            }
+
+                .refresh-btn:hover i, .export-btn:hover i {
+                    color: white;
+                }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-title {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(177, 147, 90, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .stat-desc {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .data-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn, .view-btn {
+            padding: 5px 12px;
+            border-radius: 5px;
+            background-color: var(--light-color);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+            .filter-btn i, .view-btn i {
+                margin-right: 5px;
+                font-size: 0.85rem;
+            }
+
+            .filter-btn:hover, .view-btn:hover {
+                background-color: #eee;
+            }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .data-table th, .data-table td {
+                padding: 15px 20px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+
+            .data-table th {
+                background-color: #f9f9f9;
+                font-weight: 600;
+                color: #555;
+            }
+
+            .data-table tr:last-child td {
+                border-bottom: none;
+            }
+
+            .data-table tr:hover {
+                background-color: #f5f5f5;
+            }
+
+        .status {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+
+            .status.new {
+                background-color: rgba(52, 152, 219, 0.1);
+                color: #3498db;
+            }
+
+            .status.processing {
+                background-color: rgba(243, 156, 18, 0.1);
+                color: #f39c12;
+            }
+
+            .status.responded {
+                background-color: rgba(46, 204, 113, 0.1);
+                color: #2ecc71;
+            }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+            .action-btn:hover {
+                color: var(--accent-color);
+            }
+
+            .action-btn i {
+                font-size: 1rem;
+            }
+
+        .empty-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+            .empty-state i {
+                font-size: 3rem;
+                margin-bottom: 15px;
+                color: #ddd;
+            }
+
+        .loading-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--accent-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+            .page-btn.active {
+                background-color: var(--accent-color);
+                color: white;
+                border-color: var(--accent-color);
+            }
+
+            .page-btn:not(.active):hover {
+                background-color: #f5f5f5;
+            }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+            .modal-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+        .modal {
+            background-color: white;
+            width: 600px;
+            max-width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+            .close-modal:hover {
+                color: #ff4136;
+            }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .contact-details {
+            margin-bottom: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .detail-label {
+            width: 120px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .detail-value {
+            flex: 1;
+        }
+
+        .message-content {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: 1px solid var(--accent-color);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary:hover {
+            background-color: #9a7d48;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+        }
+
+        .filter-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            padding: 10px 0;
+            min-width: 150px;
+            z-index: 10;
+            display: none;
+        }
+
+            .dropdown-menu.show {
+                display: block;
+            }
+
+        .dropdown-item {
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f5f5f5;
+            }
+
+            .dropdown-item i {
+                margin-right: 8px;
+                width: 16px;
+            }
+
+        .response-form {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+
+            .form-group textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                resize: vertical;
+                min-height: 100px;
+            }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Responsiveness */
+        @media screen and (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                width: 0;
+                padding: 0;
+                transform: translateX(-100%);
+                transition: transform 0.3s, width 0.3s;
+                z-index: 1000;
+            }
+
+                .sidebar.active {
+                    width: 280px;
+                    padding: 30px 0;
+                    transform: translateX(0);
+                }
+
+            .main-content {
+                margin-left: 0;
+                padding: 70px 15px 20px;
+                width: 100%;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                min-width: 700px;
+                font-size: 0.85rem;
+            }
+
+            .data-section {
+                overflow-x: auto;
+            }
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+            .sidebar-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><a href="../Homepage/homepage.html">La Joie</a></div>
+        </div>
+
+        <div class="admin-info">
+            <div class="admin-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div>
+                <div class="admin-name">Admin</div>
+                <div class="admin-role">Administrator</div>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="active"><i class="fas fa-tachometer-alt"></i> <a href="admin-dashboard.html" style="color: inherit; text-decoration: none;">Dashboard</a></li>
+
+            <li><i class="fas fa-users"></i><a href="admin-job-applications.html" style="color: inherit; text-decoration: none;">Job Applications</a></li>
+        </ul>
+
+        <div class="logout-btn">
+            <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Contact Form Submissions</h1>
+            <div class="header-actions">
+                <button class="refresh-btn" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <button class="export-btn" id="exportBtn">
+                    <i class="fas fa-download"></i> Export CSV
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Total Submissions</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalSubmissions">0</div>
+                <div class="stat-desc">Contact form entries received</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">New</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="newSubmissions">0</div>
+                <div class="stat-desc">Unread submissions</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Processing</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="processingSubmissions">0</div>
+                <div class="stat-desc">Submissions being processed</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Responded</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="respondedSubmissions">0</div>
+                <div class="stat-desc">Submissions responded to</div>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <div class="section-header">
+                <h2 class="section-title">Recent Submissions</h2>
+                <div class="section-actions">
+                    <div class="filter-dropdown">
+                        <button class="filter-btn" id="filterBtn">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <div class="dropdown-menu" id="filterMenu">
+                            <div class="dropdown-item" data-filter="all">
+                                <i class="fas fa-list"></i> All
+                            </div>
+                            <div class="dropdown-item" data-filter="new">
+                                <i class="fas fa-bell"></i> New
+                            </div>
+                            <div class="dropdown-item" data-filter="processing">
+                                <i class="fas fa-clock"></i> Processing
+                            </div>
+                            <div class="dropdown-item" data-filter="responded">
+                                <i class="fas fa-check-circle"></i> Responded
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="submissionsTableContainer">
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p>Loading submissions...</p>
+                </div>
+
+                <table class="data-table" id="submissionsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Inquiry Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="submissionsTableBody">
+                        <!-- Table content will be loaded dynamically -->
+                    </tbody>
+                </table>
+
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No submissions yet</h3>
+                    <p>When users submit the contact form, their submissions will appear here.</p>
+                </div>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Submission Details Modal -->
+    <div class="modal-overlay" id="submissionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Submission Details</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="contact-details">
+                    <div class="detail-row">
+                        <div class="detail-label">Full Name:</div>
+                        <div class="detail-value" id="modalName">John Doe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Email:</div>
+                        <div class="detail-value" id="modalEmail">john@example.com</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Phone:</div>
+                        <div class="detail-value" id="modalPhone">+971 55 123 4567</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Address:</div>
+                        <div class="detail-value" id="modalAddress">Dubai, UAE</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Inquiry Type:</div>
+                        <div class="detail-value" id="modalInquiryType">Property Information</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Date:</div>
+                        <div class="detail-value" id="modalDate">May 10, 2025</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Status:</div>
+                        <div class="detail-value" id="modalStatus">New</div>
+                    </div>
+
+                    <div class="message-content">
+                        <h4>Message:</h4>
+                        <p id="modalMessage">This is the message content from the user.</p>
+                    </div>
+                </div>
+
+                <div class="response-form" id="responseForm">
+                    <div class="form-group">
+                        <label for="responseText">Reply to this inquiry:</label>
+                        <textarea id="responseText" placeholder="Type your response here..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn btn-secondary" id="markAsProcessingBtn">Mark as Processing</button>
+                <button class="modal-btn btn-primary" id="sendResponseBtn">Send Response</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    // API base URL - change to your server URL in production
+    const API_BASE_URL = 'http://localhost:3001/api';
+
+    document.addEventListener('DOMContentLoaded', () => {
+    // Check if user is logged in
+    if (!sessionStorage.getItem('isLoggedIn')) {
+    window.location.href = 'admin-login.html';
+    return;
+    }
+
+    // DOM Elements
+    const logoutBtn = document.getElementById('logoutBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const filterBtn = document.getElementById('filterBtn');
+    const filterMenu = document.getElementById('filterMenu');
+    const submissionsTableBody = document.getElementById('submissionsTableBody');
+    const submissionsTable = document.getElementById('submissionsTable');
+    const emptyState = document.getElementById('emptyState');
+    const loadingState = document.getElementById('loadingState');
+    const submissionModal = document.getElementById('submissionModal');
+    const closeModal = document.getElementById('closeModal');
+    const markAsProcessingBtn = document.getElementById('markAsProcessingBtn');
+    const sendResponseBtn = document.getElementById('sendResponseBtn');
+
+    // Counters
+    const totalSubmissionsEl = document.getElementById('totalSubmissions');
+    const newSubmissionsEl = document.getElementById('newSubmissions');
+    const processingSubmissionsEl = document.getElementById('processingSubmissions');
+    const respondedSubmissionsEl = document.getElementById('respondedSubmissions');
+
+    // Modal fields
+    const modalName = document.getElementById('modalName');
+    const modalEmail = document.getElementById('modalEmail');
+    const modalPhone = document.getElementById('modalPhone');
+    const modalAddress = document.getElementById('modalAddress');
+    const modalInquiryType = document.getElementById('modalInquiryType');
+    const modalDate = document.getElementById('modalDate');
+    const modalStatus = document.getElementById('modalStatus');
+    const modalMessage = document.getElementById('modalMessage');
+    const responseText = document.getElementById('responseText');
+
+    // Current view state
+    let currentFilter = 'all';
+    let currentSubmissionId = null;
+    let allSubmissions = [];
+
+    // Fetch submissions from backend
+    async function loadSubmissions() {
+    try {
+    loadingState.style.display = 'block';
+    submissionsTable.style.display = 'none';
+    emptyState.style.display = 'none';
+
+    const response = await fetch(`${API_BASE_URL}/contacts`);
+
+    if (!response.ok) {
+    throw new Error('Failed to fetch submissions');
+    }
+
+    allSubmissions = await response.json();
+    renderSubmissionsTable(currentFilter);
+
+    loadingState.style.display = 'none';
+    } catch (error) {
+    console.error('Error loading submissions:', error);
+    loadingState.innerHTML = `
+    <i class="fas fa-exclamation-triangle" style="color: #ff4136; font-size: 3rem;"></i>
+    <h3>Error Loading Data</h3>
+    <p>Could not connect to the server. Please make sure the backend is running on port 3000.</p>
+    <button onclick="location.reload()" style="margin-top: 15px; padding: 10px 20px; background-color: var(--accent-color); color: white; border: none; border-radius: 5px; cursor: pointer;">Retry</button>
+    `;
+    }
+    }
+
+    // Update counters
+    function updateCounters(submissions) {
+    let totalCount = submissions.length;
+    let newCount = submissions.filter(s => s.status === 'new').length;
+    let processingCount = submissions.filter(s => s.status === 'processing').length;
+    let respondedCount = submissions.filter(s => s.status === 'responded').length;
+
+    totalSubmissionsEl.textContent = totalCount;
+    newSubmissionsEl.textContent = newCount;
+    processingSubmissionsEl.textContent = processingCount;
+    respondedSubmissionsEl.textContent = respondedCount;
+    }
+
+    // Format date
+    function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+    });
+    }
+
+    // Render submissions table
+    function renderSubmissionsTable(filter = 'all') {
+    let filteredSubmissions = allSubmissions;
+
+    if (filter !== 'all') {
+    filteredSubmissions = allSubmissions.filter(s => s.status === filter);
+    }
+
+    submissionsTableBody.innerHTML = '';
+
+    if (filteredSubmissions.length === 0) {
+    submissionsTable.style.display = 'none';
+    emptyState.style.display = 'block';
+    } else {
+    emptyState.style.display = 'none';
+    submissionsTable.style.display = 'table';
+
+    filteredSubmissions.forEach((submission) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+    <td>${formatDate(submission.date)}</td>
+    <td>${submission.firstName} ${submission.lastName}</td>
+    <td>${submission.email}</td>
+    <td>${submission.inquiryType}</td>
+    <td><span class="status ${submission.status}">${submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}</span></td>
+    <td>
+        <button class="action-btn view-btn" data-id="${submission._id}">
+            <i class="fas fa-eye"></i>
+        </button>
+    </td>
+    `;
+    submissionsTableBody.appendChild(tr);
+    });
+
+    // Add event listeners to view buttons
+    document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+    const id = this.getAttribute('data-id');
+    openSubmissionModal(id);
+    });
+    });
+    }
+
+    updateCounters(allSubmissions);
+    }
+
+    // Open submission modal
+    function openSubmissionModal(id) {
+    currentSubmissionId = id;
+    const submission = allSubmissions.find(s => s._id === id);
+
+    if (submission) {
+    modalName.textContent = `${submission.firstName} ${submission.lastName}`;
+    modalEmail.textContent = submission.email;
+    modalPhone.textContent = `+971 ${submission.phoneNumber}`;
+    modalAddress.textContent = submission.homeAddress || 'Not provided';
+    modalInquiryType.textContent = submission.inquiryType;
+    modalDate.textContent = formatDate(submission.date);
+    modalStatus.textContent = submission.status.charAt(0).toUpperCase() + submission.status.slice(1);
+    modalMessage.textContent = submission.message || 'No message provided';
+
+    // Clear response text
+    responseText.value = '';
+
+    // Update buttons based on status
+    if (submission.status === 'new') {
+    markAsProcessingBtn.style.display = 'block';
+    markAsProcessingBtn.textContent = 'Mark as Processing';
+    } else if (submission.status === 'processing') {
+    markAsProcessingBtn.style.display = 'block';
+    markAsProcessingBtn.textContent = 'Mark as New';
+    } else {
+    markAsProcessingBtn.style.display = 'none';
+    }
+
+    submissionModal.classList.add('active');
+    }
+    }
+
+    // Close submission modal
+    function closeSubmissionModal() {
+    submissionModal.classList.remove('active');
+    currentSubmissionId = null;
+    }
+
+    // Mark as processing/new button
+    markAsProcessingBtn.addEventListener('click', async function () {
+    if (currentSubmissionId) {
+    const submission = allSubmissions.find(s => s._id === currentSubmissionId);
+    const newStatus = submission.status === 'new' ? 'processing' : 'new';
+
+    try {
+    const response = await fetch(`${API_BASE_URL}/contacts/${currentSubmissionId}`, {
+    method: 'PUT',
+    headers: {
+    'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status: newStatus })
+    });
+
+    if (!response.ok) {
+    throw new Error('Failed to update status');
+    }
+
+    // Reload submissions
+    await loadSubmissions();
+    closeSubmissionModal();
+    } catch (error) {
+    console.error('Error updating status:', error);
+    alert('Failed to update status. Please try again.');
+    }
+    }
+    });
+
+    // Send response button
+    sendResponseBtn.addEventListener('click', async function () {
+    const response = responseText.value.trim();
+
+    if (response === '') {
+    alert('Please enter a response message.');
+    return;
+    }
+
+    if (currentSubmissionId) {
+    try {
+    const apiResponse = await fetch(`${API_BASE_URL}/contacts/${currentSubmissionId}`, {
+    method: 'PUT',
+    headers: {
+    'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+    status: 'responded',
+    response: response,
+    responseDate: new Date().toISOString()
+    })
+    });
+
+    if (!apiResponse.ok) {
+    throw new Error('Failed to send response');
+    }
+
+    alert('Response sent successfully!');
+    await loadSubmissions();
+    closeSubmissionModal();
+    } catch (error) {
+    console.error('Error sending response:', error);
+    alert('Failed to send response. Please try again.');
+    }
+    }
+    });
+
+    // Filter dropdown toggle
+    filterBtn.addEventListener('click', function () {
+    filterMenu.classList.toggle('show');
+    });
+
+    // Close filter dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+    if (!filterBtn.contains(event.target) && !filterMenu.contains(event.target)) {
+    filterMenu.classList.remove('show');
+    }
+    });
+
+    // Filter menu items
+    filterMenu.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function () {
+    const filter = this.getAttribute('data-filter');
+    currentFilter = filter;
+    renderSubmissionsTable(filter);
+    filterMenu.classList.remove('show');
+    filterBtn.innerHTML = `<i class="fas fa-filter"></i> ${filter.charAt(0).toUpperCase() + filter.slice(1)}`;
+    });
+    });
+
+    // Refresh button
+    refreshBtn.addEventListener('click', function () {
+    loadSubmissions();
+
+    // Add rotation animation
+    this.querySelector('i').classList.add('fa-spin');
+    setTimeout(() => {
+    this.querySelector('i').classList.remove('fa-spin');
+    }, 1000);
+    });
+
+    // Export to CSV
+    exportBtn.addEventListener('click', function () {
+    if (allSubmissions.length === 0) {
+    alert('No data to export.');
+    return;
+    }
+
+    let csvContent = 'data:text/csv;charset=utf-8,';
+
+    // CSV Header
+    csvContent += 'Date,First Name,Last Name,Email,Phone,Address,Inquiry Type,Message,Status\n';
+
+    // CSV Rows
+    allSubmissions.forEach(s => {
+    const row = [
+    new Date(s.date).toLocaleString(),
+    s.firstName,
+    s.lastName,
+    s.email,
+    s.phoneNumber,
+    s.homeAddress || '',
+    s.inquiryType,
+    (s.message || '').replace(/,/g, ';').replace(/\n/g, ' '),
+    s.status
+    ];
+
+    csvContent += row.join(',') + '\n';
+    });
+
+    // Create download link
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `la-joie-contacts-${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+
+    // Download file
+    link.click();
+    document.body.removeChild(link);
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', closeSubmissionModal);
+
+    // Close modal when clicking outside
+    submissionModal.addEventListener('click', function (event) {
+    if (event.target === submissionModal) {
+    closeSubmissionModal();
+    }
+    });
+
+    // Logout button
+    logoutBtn.addEventListener('click', function () {
+    sessionStorage.removeItem('isLoggedIn');
+    window.location.href = 'admin-login.html';
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.body.appendChild(menuToggle);
+
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.createElement('div');
+    sidebarOverlay.className = 'sidebar-overlay';
+    document.body.appendChild(sidebarOverlay);
+
+    menuToggle.addEventListener('click', function () {
+    sidebar.classList.toggle('active');
+    sidebarOverlay.classList.toggle('active');
+    const icon = this.querySelector('i');
+    icon.className = sidebar.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+    });
+
+    sidebarOverlay.addEventListener('click', function () {
+    sidebar.classList.remove('active');
+    sidebarOverlay.classList.remove('active');
+    menuToggle.querySelector('i').className = 'fas fa-bars';
+    });
+
+    window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) {
+    sidebar.classList.remove('active');
+    sidebarOverlay.classList.remove('active');
+    menuToggle.querySelector('i').className = 'fas fa-bars';
+    }
+    });
+
+    // Initial load
+    loadSubmissions();
+    });
+    </script>
+    </body></html>
+
+
+
