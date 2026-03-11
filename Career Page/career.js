@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Form submission - 
+    // Form submission - UPDATED to send to backend
     const careerForm = document.getElementById('career-form');
 
     if (careerForm) {
